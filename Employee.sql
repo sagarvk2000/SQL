@@ -9,19 +9,13 @@ designation varchar(20), gender varchar(10))
 
 sp_help Employee
 
-insert into Employee(empid,empname,salary,gender) values(1,'sagar',55000,'male')
-insert into Employee(empid,empname,salary,gender) values(2,'pankaj',5000,'male')
-insert into Employee values(3,'pratik',4000,'hr','bavdhan','emp','male')
-insert into Employee values(4,'sanket',3000,'hr','chakan','emp','male')
-insert into Employee values(5,'fahad',4000,'hr','bavdhan','emp','male')
+truncate table Employee 
 
-delete from Employee 
-
-insert into Employee values(1,'vidyashree',40000,'manager','pune','emp','female')
-insert into Employee values(2,'sanket',19000,'hr','pune','emp','male')
-insert into Employee values(3,'anjali',22000,'sales','dubai','emp','female')
+insert into Employee values(1,'vidyashree',40000,'manager','pune','tester','female')
+insert into Employee values(2,'sanket',19000,'hr','pune','admin','male')
+insert into Employee values(3,'anjali',22000,'sales','dubai','tester','female')
 insert into Employee values(4,'pratik',46000,'sales','banglore','emp','male')
-insert into Employee values(5,'pankaj',33000,'hr','mumbai','emp','male')
+insert into Employee values(5,'pankaj',33000,'hr','mumbai','tester','male')
 
 select *from Employee
 
@@ -74,3 +68,21 @@ select empname,designation from Employee where adress in('pune','mumbai')
 
 --write query to display all the employee whos designation contains 'e' character
 select * from Employee where empname like '%e%'
+
+
+--kalyani mam querys
+--write query to find the gender wise emp count
+select gender, count(*) from employee group by gender
+
+--find out the designation in which more than two emp are workings
+select designation, count(*) as 'count emp' from employee group by designation having count(*)>2
+ 
+--find out the address where only 1 emp is living 
+select adress, count(*) as 'address' from Employee group by adress having count(*)=1
+
+--write query to find out department wise avg salary
+select deptname, avg(salary) as 'avg salary' from Employee group by deptname 
+
+--find out the department where maximum emp are working
+select top (1) deptname,count(*) as 'max emp' from Employee group by deptname order by deptname desc
+

@@ -132,16 +132,40 @@ select * from products where p_name between 'Geitost' and 'Pavlova'
 select PostalCode as 'Pno' from customers
 
 --35.When displaying the Customers table, refer to the table as Consumers instead of Customers.
-select * from customers consumer
+select 'customers' as 'consumer'
 
 --36.List the number of customers in each country.
-select country from customers group by country
+select country, count(customer_id)as 'count' from customers group by country
 
 --37.List the number of customers in each country, ordered by the country with the most customers first.
+select country, count(customer_id)as 'count' from customers group by country order by  count(customer_id) desc
+
 --38.Write the correct SQL statement to create a new database called testDB.
+create database testDB
+
 --39.Write the correct SQL statement to delete a database named testDB
+drop database testDB
+
 --40.Add a column of type DATE called Birthday in Persons table
+alter table customers add birth_date varchar(20)
+
 --41.Delete the column Birthday from the Persons table
+alter table customers drop column birth_date
+
+
+
+--create a function which accept the price and discount %
+-- calculate and returns the price of each product and discounted price
+
+alter function GetProductDis(@price int,@discount_price int)
+returns int as begin
+declare @res int;
+set @res=@price-(@price*@discount_price/100);
+return @res
+end 
+
+select dbo.GetProductDis(50,5)as 'discount_price',price,p_name from products
+
 
 
 
